@@ -3,13 +3,12 @@ require('dotenv').config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('MongoDB conectado com sucesso');
+   // Refatorado para suportar o driver v4+ do MongoDB (opções obsoletas removidas)
+    await mongoose.connect(process.env.MONGO_URI);
+    
+    console.log('✅ MongoDB conectado com sucesso');
   } catch (error) {
-    console.error('Erro ao conectar ao MongoDB', error);
+    console.error('❌ Erro ao conectar ao MongoDB:', error.message);
     process.exit(1); 
   }
 };
